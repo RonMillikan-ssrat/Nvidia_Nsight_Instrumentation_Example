@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --job-name=vit_weather
-#SBATCH --account=nesccmgmt
-#SBATCH --partition=u1-h100
-#SBATCH --qos=admin
+#SBATCH --account=VALID-ACCOUNT
+#SBATCH --partition=VALID-PARTITION	
+#SBATCH --qos=VALID-QUALITY-OF-SERVICE
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=1             # one srun task per node; torchrun forks GPUs
 #SBATCH --cpus-per-task=16             # all CPUs for that task (torchrun uses them)
@@ -21,11 +21,10 @@
 set -euo pipefail
 mkdir -p logs checkpoints profiles
 
-SCRIPT_DIR=/scratch3/SYSADMIN/nesccmgmt/Ron.Millikan/devl/nsite3
+SCRIPT_DIR=SCRIPT-LOCATION
 TRAIN_SCRIPT=${SCRIPT_DIR}/vit_weather_train.py
 PLOT_SCRIPT=${SCRIPT_DIR}/plot_metrics.py
-#NSYS=/tds_scratch2/SYSADMIN/nesccmgmt/Ron.Millikan/tools/bin/nsys
-NSYS=/scratch3/SYSADMIN/nesccmgmt/Ron.Millikan/devl/nsite3/opt/nvidia/nsight-systems-cli/2026.3.1/target-linux-x64/nsys
+NSYS=/Ron.Millikan/devl/nsite3/opt/nvidia/nsight-systems-cli/2026.3.1/target-linux-x64/nsys
 for f in "${TRAIN_SCRIPT}" "${PLOT_SCRIPT}"; do
     if [[ ! -f "${f}" ]]; then
         echo "ERROR: not found: ${f}"
